@@ -1,11 +1,12 @@
-def compress(phrase):
-    dictonary:dict = {}
-    encoded:dict = {}
-    entry:str =""
-    index:int =1
-    phrase+="\0" #Add endline character
+def compress(phrase: str) -> dict:
+    dictonary:dict  = dict()
+    encoded:dict    = dict()
+    entry:str       = str()
+    index:int       = 1
+    phrase         += "\0" #Add endline character
+    
     for char in phrase:
-        entry+=char
+        entry += char
         if list(
             filter( 
                 lambda index: 
@@ -24,7 +25,7 @@ def compress(phrase):
             else:
                 encoded[index] = [0,entry]
             dictonary[index] = entry
-            entry = ""
+            entry = str()
         index+=1
     return encoded
 
