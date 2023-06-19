@@ -23,8 +23,35 @@ def decompress(src: dict) -> str:
 
     return dcomp
 
+def build_dict(src: str) -> dict:
+    tmp_dict: dict = dict() # The dictionary to build.
+    curr_index: int = 0 # current index in the dictionary.
+    curr_entry: str = str() # The current found entry.
+    curr_ref: str = str() # current reference.
+    was_ref: bool = True # check if the previous character was reference.
+
+    for byte in src:
+        if (ord(byte) >= 48 and ord(byte) <= 57):
+            if (was_ref == 0):
+                tmp_dict[curr_index] = [int(curr_ref), curr_entry]
+                curr_ref = ""
+                curr_entry = ""
+                curr_index += 1
+            curr_ref += byte
+            was_ref = True
+        else:
+            was_ref = 0
+            curr_entry += byte
+
+    return tmp_dict
+    
+
+
+
 # remove the lines below - test only - gianni, I just let it here so you can also verify the algorithm, if you want to.
 # compressed messege reference: https://archive.ph/20130107200800/http://oldwww.rasip.fer.hr/research/compress/algorithms/fund/lz/lz78.html
+
+"""
 characters = {
     1: [0, "A"],
     2: [0, "B"],
@@ -41,4 +68,8 @@ for i in range(1, len(characters) + 1):
 print("Init sequence: ", test_init_seq)
 print("Compressed:    ", comp)
 print("Decompressed:  ", decompress(characters))
+"""
+
+print("0A0B4C3C6A3S0D8D8K0S2")
+print(build_dict("0A0B4C3C6A3S0D8D8K0S2"))
 
