@@ -3,7 +3,7 @@ def compress(phrase):
     encoded:dict = {}
     entry:str =""
     index:int =1
-    
+    phrase+="\0" #Add endline character
     for char in phrase:
         entry+=char
         if list(
@@ -28,6 +28,6 @@ def compress(phrase):
         index+=1
     return encoded
 
-print(compress("ABBCBCABA"))
+print(compress("ABCC"))
 
 
