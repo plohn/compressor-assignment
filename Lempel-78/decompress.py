@@ -24,24 +24,28 @@ def decompress(src: dict) -> str:
     return dcomp
 
 def build_dict(src: str) -> dict:
-    tmp_dict: dict = dict() # The dictionary to build.
+    tmp_dict: dict  = dict() # The dictionary to build.
     curr_index: int = 0 # current index in the dictionary.
     curr_entry: str = str() # The current found entry.
-    curr_ref: str = str() # current reference.
-    was_ref: bool = True # check if the previous character was reference.
+    curr_ref: str   = str() # current reference.
+    was_ref: bool   = True # check if the previous character was reference.
 
     for byte in src:
         if (ord(byte) >= 48 and ord(byte) <= 57):
             if (was_ref == 0):
                 tmp_dict[curr_index] = [int(curr_ref), curr_entry]
-                curr_ref = ""
-                curr_entry = ""
+                curr_ref = str()
+                curr_entry = str()
                 curr_index += 1
             curr_ref += byte
             was_ref = True
         else:
             was_ref = 0
             curr_entry += byte
+    if (len(curr_ref) > 0 and len(curr_entry) == 0):
+        tmp_dict[curr_index] = [int(curr_ref), ""]
+    else:
+        tmp_dict[curr_index] = [int(curr_ref), curr_entry]
 
     return tmp_dict
     
