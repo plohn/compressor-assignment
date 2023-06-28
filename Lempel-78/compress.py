@@ -32,7 +32,9 @@ compressedFile:bytearray = bytearray()
 
 with open("test.txt","rb") as input:
     entry:bytearray = bytearray(input.read())
-    for ref in list(compress(entry).values()):
+    file = list(compress(entry).values())
+    print(file)
+    for ref in file:
         for symbol in ref:
             if (isinstance(symbol, int)):
                 compressedFile.append(symbol)
