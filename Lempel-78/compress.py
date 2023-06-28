@@ -28,20 +28,16 @@ def compress(file: bytearray) -> dict:
         index+=1
     return encoded
 
-def createFile(encodedmsg: list):
-    data: str() = str()
-    for value in encodedmsg:
-        for item in value:
-            data+=str(item)
-    with open("output.cmp","wb") as f:
-        f.write(bytes(data))
-    return data
-
 compressedFile:bytearray = bytearray()
 
 with open("test.txt","rb") as input:
     entry:bytearray = bytearray(input.read())
-    print(list(compress(entry).values()))
+    for ref in list(compress(entry).values()):
+        for symbol in ref:
+            if (isinstance(symbol, int)):
+                compressedFile.append(symbol)
+            else:
+                compressedFile.extend(symbol)
 
 with open("output","wb") as f:
     f.write(compressedFile)
