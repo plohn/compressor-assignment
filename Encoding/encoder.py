@@ -7,7 +7,6 @@ def is_parity_even(byte: bitarray):
     else:
         return False
 
-
 def ecc_build_row_parity_bits(data: bytearray) -> bitarray:
     row_parity: bitarray = bitarray.bitarray(endian = 'big')
     tmp: bitarray = bitarray.bitarray(endian = 'big')
@@ -41,13 +40,12 @@ def ecc_build_col_parity_bits(data: bytearray) -> bitarray:
         curr_col.clear() 
     return col_parity
 
+def get_encoded_information(msg: bytearray) -> bitarray:
+    encoded_msg: bitarray = ecc_build_row_parity_bits(msg)
+    col_bits: bitarray    = ecc_build_col_parity_bits(msg)
+    total_col_bits: int = col_bits.count(1) + col_bits.count(0)
+    for col_bit in range(total_col_bits):
+        encoded_msg.append(col_bits[col_bit])
+    return encoded_msg
 
-row_bits = ecc_build_row_parity_bits("abc".encode())
-col_bits = ecc_build_col_parity_bits("abc".encode())
 
-total_col_bits = col_bits.count(1) + col_bits.count(0)
-for i in range(total_col_bits):
-    row_bits.append(total_col_bits[i])
-
-print(row_bits)
-#print(ecc_two_dim_parity_bit(bytearray("abc".encode())))
