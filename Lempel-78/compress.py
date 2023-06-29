@@ -1,15 +1,16 @@
+
 def compress(file: bytearray) -> dict:
     dictionary:dict  = dict()
-    encoded:dict    = dict()
-    entry:bytearray = bytearray()
-    index:int       = 1
+    encoded:dict     = dict()
+    entry:int        = []
+    index:int        = 1
     file.append(1)
     for byte in file:
         entry.append(byte)
         if list(
             filter( 
                 lambda index: 
-                    index[1] == bytes(entry), dictionary.items() 
+                    index[1] == entry, dictionary.items() 
             )): continue
         else:
             if (len(entry) > 1) :
@@ -18,28 +19,38 @@ def compress(file: bytearray) -> dict:
                 #index of the value is the first element 0 of the returned array.
                 reference = list(filter(
                     lambda index:
-                        index[1] == bytes(entry[:-1]), dictionary.items()
+                        index[1] == entry[:-1], dictionary.items()
                 ))[0][0]
-                encoded[index] = [reference,bytes(entry[-1:])]
+                encoded[index] = [reference,entry[-1:][0]]
             else:
-                encoded[index] = [0,bytes(entry)]
-            dictionary[index] = bytes(entry)
-            entry = bytearray()
+                encoded[index] = [0,entry[0]]
+            dictionary[index] = entry
+            entry = []
         index+=1
     return encoded
 
 compressedFile:bytearray = bytearray()
 
-with open("test.txt","rb") as input:
+with open("a.out","rb") as input:
     entry:bytearray = bytearray(input.read())
-    file = list(compress(entry).values())
-    print(file)
-    for ref in file:
-        for symbol in ref:
-            if (isinstance(symbol, int)):
-                compressedFile.append(symbol)
-            else:
-                compressedFile.extend(symbol)
+    file = compress(entry)
+    #for ref in file:
+    #    print(ref)
+    #    for symbol in ref:
+    #        print(type(symbol))
+    #        if (isinstance(symbol, int)):
+    #            compressedFile.append(symbol)
+    #        else:
+    #            compressedFile.extend(symbol)
+    #for symbol in file:
+    #    compressedFile.append(symbol)
+    
+    for entry in file.keys():
+        ref = file[entry][0]
+        symbol = file[entry][1]
+        compressedFile.append(ref)
+        compressedFile.append(symbol)
+
 
 with open("output","wb") as f:
     f.write(compressedFile)
