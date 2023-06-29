@@ -33,24 +33,12 @@ compressedFile:bytearray = bytearray()
 
 with open("a.out","rb") as input:
     entry:bytearray = bytearray(input.read())
-    file = compress(entry)
-    #for ref in file:
-    #    print(ref)
-    #    for symbol in ref:
-    #        print(type(symbol))
-    #        if (isinstance(symbol, int)):
-    #            compressedFile.append(symbol)
-    #        else:
-    #            compressedFile.extend(symbol)
-    #for symbol in file:
-    #    compressedFile.append(symbol)
-    
+    file = compress(entry) 
     for entry in file.keys():
         ref = file[entry][0]
         symbol = file[entry][1]
         compressedFile.append(ref)
         compressedFile.append(symbol)
-
 
 with open("output","wb") as f:
     f.write(compressedFile)
