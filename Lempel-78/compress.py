@@ -31,7 +31,7 @@ def compress(file: bytearray) -> dict:
 
 compressedFile:bytearray = bytearray()
 
-with open("a.out","rb") as input:
+with open("input","rb") as input:
     entry:bytearray = bytearray(input.read())
     file = compress(entry) 
     for entry in file.keys():
