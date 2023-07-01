@@ -44,12 +44,7 @@ def build_dict(src: bytearray) -> dict:
 
     return tmp_dict
 
-
-builded_dict = {}
-with open("output", "rb") as input:
-    
-    builded_dict = build_dict(input.read())
-    print(decompress(builded_dict))
-
-#with open("output2.out", "wb") as output:
-    #output.write(decompress(builded_dict))
+def get_decompress(compressed_file_content):
+    builded_dict: dict = dict()
+    builded_dict = build_dict(compressed_file_content)
+    return decompress(builded_dict)

@@ -29,20 +29,18 @@ def compress(file: bytearray) -> dict:
         index+=1
     return encoded
 
-compressedFile:bytearray = bytearray()
 
-with open("input","rb") as input:
-    entry:bytearray = bytearray(input.read())
-    file = compress(entry) 
-    for entry in file.keys():
+def compress_file(file_content):
+    compressed_file: bytearray = bytearray()
+    entry: bytearray = bytearray(file_content)
+    tmp_comp = compress(entry)
+    for entry in tmp_comp.keys():
         ref = file[entry][0]
         symbol = file[entry][1]
-        compressedFile.append(ref)
-        compressedFile.append(symbol)
+        compressed_file.append(ref)
+        compressed_file.append(symbol)
 
-with open("output","wb") as f:
-    f.write(compressedFile)
-    
+    return compressed_file    
     
     
     
