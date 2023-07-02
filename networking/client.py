@@ -38,6 +38,9 @@ class Compressor_client:
 
         # encode file
         encoded_file = encoder.get_encoded_information(compressed_file)
+        sha256_rep = sha256()
+        sha256_rep.update(encoded_file)
+        
         bits_to_flip = math.ceil((x_present_errors/len(encoded_file)) * 100)
         # Flip the bits to represent network error
         for flip in range(bits_to_flip):
@@ -50,8 +53,6 @@ class Compressor_client:
             already_fliped_bits.append(bit_to_flip)
             encoded_file[bit_to_flip] = not encoded_file[bit_to_flip]
             
-        sha256_rep = sha256()
-        sha256_rep.update(encoded_file)
         # The JSON to send
         data_to_send = {
             'encoded_message': bytearray(encoded_file),
