@@ -56,7 +56,7 @@ class Compressor_client:
         data_to_send = {
             'encoded_message': bytearray(encoded_file),
             'compression_algorithm': 'Lampel-78',
-            'encoding': 'Orthgonal',
+            'encoding': 'Orthogonal',
             'parameters': [],
             'errors': base64.b64encode(bits_to_flip.to_bytes(4)),
             'sha256': sha256_rep.digest()

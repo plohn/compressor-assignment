@@ -49,20 +49,20 @@ class Compressor_Server():
                     return
             
                 recieved_data = pickle.loads(transfered_data)
-                print("Used compression algorithm is ", recieved_data['compression_algorithm'])
+                print("Used compression algorithm is: ", recieved_data['compression_algorithm'])
                 print("Used encoding is: " + recieved_data['encoding'])
                 print("Used parameters: " + str(recieved_data['parameters']))
                 print("Errors: " + str(int.from_bytes(base64.b64decode(recieved_data['errors']))))
                 print("SHA256: " + str(recieved_data['sha256'].hex()))
             
-                # decode transfared data.
+                # decode Transferred data.
                 decoded_data = decoder.decode_information(recieved_data['encoded_message'])
                 try:
                     # decompress the transfered data
                     decompressed_data = decompress.get_decompress(bytearray(decoded_data))
-                    print("Transfered data: " + str(decompressed_data))
+                    print("Transferred data: " + str(decompressed_data))
                 except:
-                    print("Can't decompress the transfered data due to high number of errors")
+                    print("Can't decompress the transferred data due to high number of errors")
 
 server: Compressor_Server = Compressor_Server('127.0.0.1', 64632)
 server.recieve_requested_file()
