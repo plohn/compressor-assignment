@@ -36,14 +36,15 @@ def perform_ecc(row_bits: bitarray, parity_col: bitarray, data: bitarray) -> bit
         fixed.append(row_bits[row])
     return fixed
 
-def decode_information(data: bitarray) -> bitarray:
+def decode_information(src: bytearray) -> bitarray:
+    data: bitarray = bitarray.bitarray()
+    data.frombytes(src)
     col_parity_bits: bitarray = retrieve_col_parity_bits(data)
     curr_row: bitarray = bitarray.bitarray(endian='big')
     total_bits: int = data.count(0) + data.count(1) 
     decoded: bitarray = bitarray.bitarray(endian='big')
     # total_bits - 9, because we do not want to calculate column bits.
     total_bits -= 9
-    print(col_parity_bits)
 
     for row_start in range(1, total_bits, 9):
         curr_row = data[row_start - 1 : row_start + 8] # Get the current row, including parity bit.

@@ -30,13 +30,13 @@ def compress(file: bytearray) -> dict:
     return encoded
 
 
-def compress_file(file_content):
+def compress_file(file_content) -> bytearray:
     compressed_file: bytearray = bytearray()
     entry: bytearray = bytearray(file_content)
     tmp_comp = compress(entry)
     for entry in tmp_comp.keys():
-        ref = file[entry][0]
-        symbol = file[entry][1]
+        ref = tmp_comp[entry][0]
+        symbol = tmp_comp[entry][1]
         compressed_file.append(ref)
         compressed_file.append(symbol)
 

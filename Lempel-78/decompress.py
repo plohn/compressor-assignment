@@ -3,7 +3,7 @@
    @param src The LZ78 based compressed message.
    @return A string that represent the decompressed message.
 """
-def decompress(src: dict) -> str:
+def decompress(src: dict) -> bytearray:
     comp_tmp:dict   = src # do not change the data of the original dictionary
     dcomp:bytearray = bytearray() # The decoded message.
     next_dcomp:int  = int()
@@ -44,7 +44,7 @@ def build_dict(src: bytearray) -> dict:
 
     return tmp_dict
 
-def get_decompress(compressed_file_content):
+def get_decompress(compressed_file_content: bytearray):
     builded_dict: dict = dict()
     builded_dict = build_dict(compressed_file_content)
     return decompress(builded_dict)
